@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c67c84f918554e08afc35b26d8397367" Name="Diagram1">
+        <EntityTypeShape EntityType="BDSEGURIDADModel.PERM_ROL" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDSEGURIDADModel.PERMISOS" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDSEGURIDADModel.ROLES" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDSEGURIDADModel.USR_PERM" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDSEGURIDADModel.USR_ROL" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDSEGURIDADModel.USUARIOS" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="BDSEGURIDADModel.FK_PERM_ROL_PERMISOS" ManuallyRouted="false" />
+        <AssociationConnector Association="BDSEGURIDADModel.FK_PERM_ROL_ROLES" ManuallyRouted="false" />
+        <AssociationConnector Association="BDSEGURIDADModel.FK_USR_PERM_PERMISOS" ManuallyRouted="false" />
+        <AssociationConnector Association="BDSEGURIDADModel.FK_USR_ROL_ROLES" ManuallyRouted="false" />
+        <AssociationConnector Association="BDSEGURIDADModel.FK_USR_PERM_USUARIOS" ManuallyRouted="false" />
+        <AssociationConnector Association="BDSEGURIDADModel.FK_USR_ROL_USUARIOS" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

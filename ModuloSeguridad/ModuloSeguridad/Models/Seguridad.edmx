@@ -1,0 +1,406 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BDSEGURIDADModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PERM_ROL">
+          <Key>
+            <PropertyRef Name="COD_PRROL" />
+          </Key>
+          <Property Name="COD_PRROL" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="COD_ROL" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="COD_PERM" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PERMISOS">
+          <Key>
+            <PropertyRef Name="COD_PERM" />
+          </Key>
+          <Property Name="COD_PERM" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="NOM_PERM" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="COD_ROL" />
+          </Key>
+          <Property Name="COD_ROL" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="NOM_ROL" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USR_PERM">
+          <Key>
+            <PropertyRef Name="COD_USRPERM" />
+          </Key>
+          <Property Name="COD_USRPERM" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="COD_PERM" Type="nvarchar" MaxLength="5" />
+          <Property Name="COD_USER" Type="nvarchar" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="USR_ROL">
+          <Key>
+            <PropertyRef Name="COD_USRROL" />
+          </Key>
+          <Property Name="COD_USRROL" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="COD_USER" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="COD_ROL" Type="nvarchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="COD_USER" />
+          </Key>
+          <Property Name="COD_USER" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="NIC_USER" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PAS_USER" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PERM_ROL_PERMISOS">
+          <End Role="PERMISOS" Type="Self.PERMISOS" Multiplicity="1" />
+          <End Role="PERM_ROL" Type="Self.PERM_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERMISOS">
+              <PropertyRef Name="COD_PERM" />
+            </Principal>
+            <Dependent Role="PERM_ROL">
+              <PropertyRef Name="COD_PERM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERM_ROL_ROLES">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+          <End Role="PERM_ROL" Type="Self.PERM_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="PERM_ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USR_PERM_PERMISOS">
+          <End Role="PERMISOS" Type="Self.PERMISOS" Multiplicity="0..1" />
+          <End Role="USR_PERM" Type="Self.USR_PERM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERMISOS">
+              <PropertyRef Name="COD_PERM" />
+            </Principal>
+            <Dependent Role="USR_PERM">
+              <PropertyRef Name="COD_PERM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USR_PERM_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="USR_PERM" Type="Self.USR_PERM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="COD_USER" />
+            </Principal>
+            <Dependent Role="USR_PERM">
+              <PropertyRef Name="COD_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USR_ROL_ROLES">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+          <End Role="USR_ROL" Type="Self.USR_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="USR_ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USR_ROL_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="USR_ROL" Type="Self.USR_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="COD_USER" />
+            </Principal>
+            <Dependent Role="USR_ROL">
+              <PropertyRef Name="COD_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDSEGURIDADModelStoreContainer">
+          <EntitySet Name="PERM_ROL" EntityType="Self.PERM_ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PERMISOS" EntityType="Self.PERMISOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USR_PERM" EntityType="Self.USR_PERM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USR_ROL" EntityType="Self.USR_ROL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PERM_ROL_PERMISOS" Association="Self.FK_PERM_ROL_PERMISOS">
+            <End Role="PERMISOS" EntitySet="PERMISOS" />
+            <End Role="PERM_ROL" EntitySet="PERM_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERM_ROL_ROLES" Association="Self.FK_PERM_ROL_ROLES">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="PERM_ROL" EntitySet="PERM_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USR_PERM_PERMISOS" Association="Self.FK_USR_PERM_PERMISOS">
+            <End Role="PERMISOS" EntitySet="PERMISOS" />
+            <End Role="USR_PERM" EntitySet="USR_PERM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USR_PERM_USUARIOS" Association="Self.FK_USR_PERM_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="USR_PERM" EntitySet="USR_PERM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USR_ROL_ROLES" Association="Self.FK_USR_ROL_ROLES">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="USR_ROL" EntitySet="USR_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USR_ROL_USUARIOS" Association="Self.FK_USR_ROL_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="USR_ROL" EntitySet="USR_ROL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BDSEGURIDADModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PERM_ROL">
+          <Key>
+            <PropertyRef Name="COD_PRROL" />
+          </Key>
+          <Property Name="COD_PRROL" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COD_ROL" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COD_PERM" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PERMISOS" Relationship="Self.FK_PERM_ROL_PERMISOS" FromRole="PERM_ROL" ToRole="PERMISOS" />
+          <NavigationProperty Name="ROLES" Relationship="Self.FK_PERM_ROL_ROLES" FromRole="PERM_ROL" ToRole="ROLES" />
+        </EntityType>
+        <EntityType Name="PERMISOS">
+          <Key>
+            <PropertyRef Name="COD_PERM" />
+          </Key>
+          <Property Name="COD_PERM" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NOM_PERM" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PERM_ROL" Relationship="Self.FK_PERM_ROL_PERMISOS" FromRole="PERMISOS" ToRole="PERM_ROL" />
+          <NavigationProperty Name="USR_PERM" Relationship="Self.FK_USR_PERM_PERMISOS" FromRole="PERMISOS" ToRole="USR_PERM" />
+        </EntityType>
+        <EntityType Name="ROLES">
+          <Key>
+            <PropertyRef Name="COD_ROL" />
+          </Key>
+          <Property Name="COD_ROL" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NOM_ROL" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PERM_ROL" Relationship="Self.FK_PERM_ROL_ROLES" FromRole="ROLES" ToRole="PERM_ROL" />
+          <NavigationProperty Name="USR_ROL" Relationship="Self.FK_USR_ROL_ROLES" FromRole="ROLES" ToRole="USR_ROL" />
+        </EntityType>
+        <EntityType Name="USR_PERM">
+          <Key>
+            <PropertyRef Name="COD_USRPERM" />
+          </Key>
+          <Property Name="COD_USRPERM" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COD_PERM" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="COD_USER" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PERMISOS" Relationship="Self.FK_USR_PERM_PERMISOS" FromRole="USR_PERM" ToRole="PERMISOS" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK_USR_PERM_USUARIOS" FromRole="USR_PERM" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="USR_ROL">
+          <Key>
+            <PropertyRef Name="COD_USRROL" />
+          </Key>
+          <Property Name="COD_USRROL" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COD_USER" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="COD_ROL" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ROLES" Relationship="Self.FK_USR_ROL_ROLES" FromRole="USR_ROL" ToRole="ROLES" />
+          <NavigationProperty Name="USUARIOS" Relationship="Self.FK_USR_ROL_USUARIOS" FromRole="USR_ROL" ToRole="USUARIOS" />
+        </EntityType>
+        <EntityType Name="USUARIOS">
+          <Key>
+            <PropertyRef Name="COD_USER" />
+          </Key>
+          <Property Name="COD_USER" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NIC_USER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PAS_USER" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="USR_PERM" Relationship="Self.FK_USR_PERM_USUARIOS" FromRole="USUARIOS" ToRole="USR_PERM" />
+          <NavigationProperty Name="USR_ROL" Relationship="Self.FK_USR_ROL_USUARIOS" FromRole="USUARIOS" ToRole="USR_ROL" />
+        </EntityType>
+        <Association Name="FK_PERM_ROL_PERMISOS">
+          <End Role="PERMISOS" Type="Self.PERMISOS" Multiplicity="1" />
+          <End Role="PERM_ROL" Type="Self.PERM_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERMISOS">
+              <PropertyRef Name="COD_PERM" />
+            </Principal>
+            <Dependent Role="PERM_ROL">
+              <PropertyRef Name="COD_PERM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PERM_ROL_ROLES">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+          <End Role="PERM_ROL" Type="Self.PERM_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="PERM_ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USR_PERM_PERMISOS">
+          <End Role="PERMISOS" Type="Self.PERMISOS" Multiplicity="0..1" />
+          <End Role="USR_PERM" Type="Self.USR_PERM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PERMISOS">
+              <PropertyRef Name="COD_PERM" />
+            </Principal>
+            <Dependent Role="USR_PERM">
+              <PropertyRef Name="COD_PERM" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USR_ROL_ROLES">
+          <End Role="ROLES" Type="Self.ROLES" Multiplicity="1" />
+          <End Role="USR_ROL" Type="Self.USR_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ROLES">
+              <PropertyRef Name="COD_ROL" />
+            </Principal>
+            <Dependent Role="USR_ROL">
+              <PropertyRef Name="COD_ROL" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USR_PERM_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="0..1" />
+          <End Role="USR_PERM" Type="Self.USR_PERM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="COD_USER" />
+            </Principal>
+            <Dependent Role="USR_PERM">
+              <PropertyRef Name="COD_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_USR_ROL_USUARIOS">
+          <End Role="USUARIOS" Type="Self.USUARIOS" Multiplicity="1" />
+          <End Role="USR_ROL" Type="Self.USR_ROL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIOS">
+              <PropertyRef Name="COD_USER" />
+            </Principal>
+            <Dependent Role="USR_ROL">
+              <PropertyRef Name="COD_USER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDSEGURIDADEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PERM_ROL" EntityType="Self.PERM_ROL" />
+          <EntitySet Name="PERMISOS" EntityType="Self.PERMISOS" />
+          <EntitySet Name="ROLES" EntityType="Self.ROLES" />
+          <EntitySet Name="USR_PERM" EntityType="Self.USR_PERM" />
+          <EntitySet Name="USR_ROL" EntityType="Self.USR_ROL" />
+          <EntitySet Name="USUARIOS" EntityType="Self.USUARIOS" />
+          <AssociationSet Name="FK_PERM_ROL_PERMISOS" Association="Self.FK_PERM_ROL_PERMISOS">
+            <End Role="PERMISOS" EntitySet="PERMISOS" />
+            <End Role="PERM_ROL" EntitySet="PERM_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PERM_ROL_ROLES" Association="Self.FK_PERM_ROL_ROLES">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="PERM_ROL" EntitySet="PERM_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USR_PERM_PERMISOS" Association="Self.FK_USR_PERM_PERMISOS">
+            <End Role="PERMISOS" EntitySet="PERMISOS" />
+            <End Role="USR_PERM" EntitySet="USR_PERM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USR_ROL_ROLES" Association="Self.FK_USR_ROL_ROLES">
+            <End Role="ROLES" EntitySet="ROLES" />
+            <End Role="USR_ROL" EntitySet="USR_ROL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USR_PERM_USUARIOS" Association="Self.FK_USR_PERM_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="USR_PERM" EntitySet="USR_PERM" />
+          </AssociationSet>
+          <AssociationSet Name="FK_USR_ROL_USUARIOS" Association="Self.FK_USR_ROL_USUARIOS">
+            <End Role="USUARIOS" EntitySet="USUARIOS" />
+            <End Role="USR_ROL" EntitySet="USR_ROL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BDSEGURIDADModelStoreContainer" CdmEntityContainer="BDSEGURIDADEntities">
+          <EntitySetMapping Name="PERM_ROL">
+            <EntityTypeMapping TypeName="BDSEGURIDADModel.PERM_ROL">
+              <MappingFragment StoreEntitySet="PERM_ROL">
+                <ScalarProperty Name="COD_PRROL" ColumnName="COD_PRROL" />
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+                <ScalarProperty Name="COD_PERM" ColumnName="COD_PERM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PERMISOS">
+            <EntityTypeMapping TypeName="BDSEGURIDADModel.PERMISOS">
+              <MappingFragment StoreEntitySet="PERMISOS">
+                <ScalarProperty Name="COD_PERM" ColumnName="COD_PERM" />
+                <ScalarProperty Name="NOM_PERM" ColumnName="NOM_PERM" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLES">
+            <EntityTypeMapping TypeName="BDSEGURIDADModel.ROLES">
+              <MappingFragment StoreEntitySet="ROLES">
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+                <ScalarProperty Name="NOM_ROL" ColumnName="NOM_ROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USR_PERM">
+            <EntityTypeMapping TypeName="BDSEGURIDADModel.USR_PERM">
+              <MappingFragment StoreEntitySet="USR_PERM">
+                <ScalarProperty Name="COD_USRPERM" ColumnName="COD_USRPERM" />
+                <ScalarProperty Name="COD_PERM" ColumnName="COD_PERM" />
+                <ScalarProperty Name="COD_USER" ColumnName="COD_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USR_ROL">
+            <EntityTypeMapping TypeName="BDSEGURIDADModel.USR_ROL">
+              <MappingFragment StoreEntitySet="USR_ROL">
+                <ScalarProperty Name="COD_USRROL" ColumnName="COD_USRROL" />
+                <ScalarProperty Name="COD_USER" ColumnName="COD_USER" />
+                <ScalarProperty Name="COD_ROL" ColumnName="COD_ROL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USUARIOS">
+            <EntityTypeMapping TypeName="BDSEGURIDADModel.USUARIOS">
+              <MappingFragment StoreEntitySet="USUARIOS">
+                <ScalarProperty Name="COD_USER" ColumnName="COD_USER" />
+                <ScalarProperty Name="NIC_USER" ColumnName="NIC_USER" />
+                <ScalarProperty Name="PAS_USER" ColumnName="PAS_USER" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
